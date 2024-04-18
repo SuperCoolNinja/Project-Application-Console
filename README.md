@@ -4,8 +4,8 @@ Wild Code School, First Project - C# .NET Application Console.
 # Quick description : 
 This First project has been made to learn OOP and Data persistance with text file using JSON.
 
-# Here is the requirement needed to be valide : 
-Project Validation Requirements Summary:
+# Project Validation Requirements : 
+
 
 Functional Specification
 
