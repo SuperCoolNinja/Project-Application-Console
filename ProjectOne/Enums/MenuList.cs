@@ -3,5 +3,5 @@
 enum MenuList
 {
     STUDENT,
-    LESSONS
+    COURSES
 }

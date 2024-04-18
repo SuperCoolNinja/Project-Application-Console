@@ -1,6 +1,4 @@
-﻿using ProjectOne.Interfaces;
-
-internal abstract class Menu : IMenu
+﻿internal abstract class Menu
 {
     public abstract void Render();
     public void BackToMainMenu()
