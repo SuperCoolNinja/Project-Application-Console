@@ -6,14 +6,11 @@ namespace ProjectOne
     {
         static void Main(string[] args)
         {
-            Logger.Write("Toto message !");
+            //Logger.ConfigurePath("C:\\Users\\...\\Desktop\\log.txt");
 
+            Logger.Write("I love banana");
 
-            //Testing with default path : 
             Logger.Read();
-
-            //Testing with specific path : 
-            Logger.Read("C:\\toto.txt");
         }
     }
 }

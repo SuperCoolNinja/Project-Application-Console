@@ -1,43 +1,54 @@
-﻿using System.IO;
-
-namespace ProjectOne.Static;
+﻿namespace ProjectOne.Static;
 
 internal static class Logger
 {
-    private const string _Path = "./";
-    private const string _FileName = "log";
-    private const string _Extension = "txt";
-    private const string _FullPath = _Path + _FileName + "." + _Extension;
+    private static string _path = "./log.txt";
 
-    public static void Write(in string message, in string path = _FullPath)
+
+    public static void ConfigurePath(string logPath)
+    {
+        _path = logPath;
+    }
+
+    public static void Write(in string message)
     {
         DateTime dateTime = DateTime.Now;
         var date = dateTime.ToString("yyyy-MM-dd HH-mm-ss");
 
-
-        if (!File.Exists(path))
+        try
         {
-            using (StreamWriter sw = File.CreateText(path))
-            {
+            using (StreamWriter sw = !File.Exists(_path) ? File.CreateText(_path) : File.AppendText(_path))
                 sw.WriteLine(date + " " + message);
-            }
         }
-        else
+        catch(Exception ex)
         {
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                sw.WriteLine(date + " " + message);
-            }
+            Console.WriteLine(ex.Message);
         }
+      
     }
 
-    public static void Read(in string fullPath = _FullPath)
+    public static void Read()
     {
-        using (StreamReader sr = File.OpenText(fullPath))
+        if (!File.Exists(_path))
         {
-            string s;
-            while ((s = sr.ReadLine()) != null)
-                Console.WriteLine(s);
+            Console.WriteLine("File not found !");
+            return;
         }
+
+
+        try
+        {
+            using (StreamReader sr = File.OpenText(_path))
+            {
+                string s;
+                while ((s = sr.ReadLine()) != null)
+                    Console.WriteLine(s);
+            }
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+       
     }
 }
