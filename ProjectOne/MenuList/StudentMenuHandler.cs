@@ -1,10 +1,12 @@
 ﻿using ProjectOne.Entities;
-
-internal class StudentMenu : Menu
+internal class StudentMenuHandler : Menu
 {
+
     public override void Render()
     {
-        // todo show a list of students ...
+
+        Console.WriteLine("Main Menu:");
+        Console.WriteLine($"{2} - Exit");
     }
 
     public void ShowStudent(Student student)

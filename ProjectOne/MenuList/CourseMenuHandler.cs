@@ -1,5 +1,5 @@
 ﻿
-internal class CourseMenu : Menu
+internal class CourseMenuHandler : Menu
 {
     public override void Render()
     {

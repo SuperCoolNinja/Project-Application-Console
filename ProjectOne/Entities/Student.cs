@@ -6,6 +6,7 @@ internal class Student
     public string FirstName { get; init; }
     public string LastName { get; init; }
     public string Birthday { get; init; }
+    public List<Grade> GradesList { get; set; }
 
     public Student(string firstName, string lastName, string birthday)
     {
@@ -13,6 +14,7 @@ internal class Student
         FirstName = firstName;
         LastName = lastName;
         Birthday = birthday;
+        GradesList = new List<Grade>(); 
     }
 
 
