@@ -1,92 +1,33 @@
 # Project-Application-Console
 Wild Code School, First Project - C# .NET Application Console.
 
-# Quick description : 
-This First project has been made to learn OOP and Data persistance with text file using JSON.
+# Application Overview
+    Student Management:
+        List Students: Display a list of all students in the system.
+        Create New Student: Add new students to the system, capturing essential details like name, date of birth, and unique identifier.
+        View Student Details: Access detailed profiles of existing students, including their courses, grades, and teacher comments.
+        Add Grades and Comments: Enter or update grades and optional teacher comments for specific courses for any student.
 
-# Project Validation Requirements : 
+    Course Management:
+        List Courses: Show all the courses available within the educational program.
+        Add New Course: Introduce new courses into the system with unique identifiers and names.
+        Delete Course: Remove existing courses from the system, along with any associated grades and comments in student profiles to ensure data consistency.
 
+    Grade Entry and Review:
+        Grade Input: Teachers can input grades for students for specific courses, with a straightforward option to add comments.
+        Grade Confirmation: The system will provide a summary of the grade and comments before finalizing the entry to prevent errors.
 
-Functional Specification
+    Data Handling and Security:
+        Local Data Storage: All data is saved locally in a JSON file format, allowing easy transfer via removable media like USB drives and ensuring data security against online breaches.
+        Dynamic Calculations: Automatically calculate students' average grades based on entered data, which is displayed but not stored to keep the data file simple.
 
-    The application operates based on functional requirements defined.
-    Data is structured according to JSON format.
+    Logging:
+        Action Logging: Every significant action taken by users, such as data modifications or views, is logged with timestamps for accountability and tracking purposes.
 
-Data File
+Technology Stack
 
-    Utilizes a JSON data file passed as an argument during program launch.
-    Must have write access and can reside on any accessible storage.
+* Language and Framework: The application will be developed in C# using .NET Core 7.0.
+* Dependencies: Nuget packages can be used for external dependencies.
+* Data Handling: Data persistence will be implemented in a simple JSON text file format using the Newtonsoft.JSON library.
+* Development Environment: Development and compilation will be carried out using Visual Studio Code.
 
-Menu
-
-    Application launches with a menu for user interaction.
-    Menu options include "Students" and "Courses."
-
-Student Menu
-
-    Provides options to:
-        List students
-        Create a new student
-        View existing student details
-        Add a grade and teacher's feedback for a course
-        Return to the main menu
-
-Course Menu
-
-    Provides options to:
-        List existing courses
-        Add a new course to the program
-        Delete a course by its identifier
-        Return to the main menu
-
-Student Entity
-
-    Attributes include:
-        Unique numeric identifier
-        Textual first and last names
-        Date of birth
-        List of grades (decimal numbers) and teacher's feedback (text) for each course
-        Average grade calculated dynamically (not stored in the file)
-
-Course Entity
-
-    Attributes include:
-        Unique numeric identifier
-        Textual name
-
-Course Deletion
-
-    Deleting a course removes associated grades and feedback for all students.
-    Requires confirmation to prevent accidental deletion.
-
-Adding Grade and Feedback
-
-    User must specify the course for input.
-    Teacher's feedback is optional; only the grade is mandatory.
-    Summary and confirmation prompt before adding input to the student.
-
-Data Storage
-
-    User modifications trigger JSON file updates.
-    Program initializes existing data from the JSON file at launch.
-
-Average Calculation
-
-    Average grade is dynamically calculated.
-    Rounded to one decimal place (e.g., 12.3 => 12.5/20).
-
-Display
-
-    Data presentation ensures clarity and readability.
-    Sample format provided for student information.
-
-Error Handling
-
-    User inputs are validated to prevent errors.
-    Invalid inputs prompt re-entry with appropriate instructions.
-
-Log File
-
-    Records all user actions, including data modifications and consultations.
-    Log file shares the name and location of the JSON file with a different extension.
-    Timestamped entries for clear interpretation.
