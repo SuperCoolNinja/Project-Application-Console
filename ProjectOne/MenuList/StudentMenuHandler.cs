@@ -1,23 +1,37 @@
 ﻿using ProjectOne.Entities;
+using ProjectOne.Static;
 internal class StudentMenuHandler : Menu
 {
-    public override string Title => "Student Menu";
-    public override List<string> MenuOptions => new List<string>() { "ss Test", "Exit" };
+    protected override string Title => "Student Menu";
+    protected override List<string> MenuOptions => new List<string>() { "Show List", "Create", "Show Info", "Add Note", "Main Menu" };
 
-    public void ShowStudent(Student student)
+
+    private void ShowStudent(Student student)
     {
 
     }
 
-    public override Menu ManageOptions(int options, ref bool stopRendering)
+    public override Menu ManageOptions(int option)
     {
-        switch (options)
+        switch (option)
         {
-            case 0:
-                Console.WriteLine("Testing ...ss");
+            case 1:
+                Logger.Write("Show student list ");
                 return this;
+            case 2:
+                Logger.Write("Create new student");
+                return this;
+            case 3:
+                Logger.Write("Show student info");
+                return this;
+            case 4:
+                Logger.Write("Add note");
+                return this;
+            case 5:
+                Logger.Write("Back to Main Menu");
+                return new MainMenuHandler();
             default:
-                stopRendering = false;
+                Logger.Write($"[{Title}] - Invalid option, try again.");
                 return this;
         }
     }

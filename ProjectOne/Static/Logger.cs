@@ -2,12 +2,10 @@
 
 internal static class Logger
 {
-    private static string _path = "./log.txt";
-
-
-    public static void ConfigurePath(string logPath)
+    private static string _path = "";
+    static Logger()
     {
-        _path = logPath;
+        _path = ApplicationManager.Path;
     }
 
     public static void Write(in string message)
@@ -20,11 +18,11 @@ internal static class Logger
             using (StreamWriter sw = !File.Exists(_path) ? File.CreateText(_path) : File.AppendText(_path))
                 sw.WriteLine(date + " " + message);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-      
+
     }
 
     public static void Read()
@@ -45,10 +43,10 @@ internal static class Logger
                     Console.WriteLine(s);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-       
+
     }
 }

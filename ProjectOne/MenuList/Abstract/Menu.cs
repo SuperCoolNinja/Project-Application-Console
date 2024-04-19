@@ -1,14 +1,16 @@
 ﻿internal abstract class Menu
 {
-    public abstract string Title { get; }
-    public abstract List<string> MenuOptions { get; }
+    protected abstract string Title { get; }
+    protected abstract List<string> MenuOptions { get; }
+
+
     public void Render()
     {
         Console.WriteLine($"{Title} :");
 
         for (int i = 0; i < MenuOptions.Count; i++)
-            Console.WriteLine($"{i} - {MenuOptions[i]}");
+            Console.WriteLine($"{i + 1} - {MenuOptions[i]}");
     }
 
-    public abstract Menu ManageOptions(int options, ref bool stopRendering);
+    public abstract Menu ManageOptions(int option);
 }

@@ -6,13 +6,11 @@ namespace ProjectOne
     {
         static void Main(string[] args)
         {
-            //Logger.ConfigurePath("C:\\Users\\...\\Desktop\\log.txt");
-            //Logger.Write("I love banana");
+            //ApplicationManager.ConfigurePath("C:\\log.txt");
 
             Menu menu = new MainMenuHandler();
-            bool isRendering = true;
 
-            while (isRendering)
+            while (ApplicationManager.ShouldNotClose())
             {
                 Console.Clear();
 
@@ -20,11 +18,10 @@ namespace ProjectOne
 
                 int userOptionChoice = ConsoleInterface.AskUserOption();
 
-                menu = menu.ManageOptions(userOptionChoice, ref isRendering);
+                menu = menu.ManageOptions(userOptionChoice);
             }
 
-            Console.WriteLine("Fin du program.");
-
+            Logger.Write("Application terminated successfully.");
         }
     }
 }

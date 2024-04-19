@@ -1,19 +1,24 @@
-﻿internal class MainMenuHandler : Menu
+﻿using ProjectOne.Static;
+
+internal class MainMenuHandler : Menu
 {
-    public override string Title => "Main Menu";
+    protected override string Title => "Main Menu";
 
-    public override List<string> MenuOptions => new List<string>() { "Menu Students", "Menu Courses", "Exit" };
+    protected override List<string> MenuOptions => new List<string>() { "Menu Students", "Menu Courses", "Exit" };
 
-    public override Menu ManageOptions(int options, ref bool stopRendering)
+    public override Menu ManageOptions(int option)
     {
-        switch (options)
+        switch (option)
         {
-            case 0:
-                return new StudentMenuHandler();
             case 1:
+                return new StudentMenuHandler();
+            case 2:
                 return new CourseMenuHandler();
+            case 3:
+                ApplicationManager.IsExiting = true;
+                return this;
             default:
-                stopRendering = false;
+                Logger.Write($"[{Title}] - Invalid option, try again.");
                 return this;
         }
     }
