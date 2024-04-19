@@ -2,20 +2,14 @@
 
 internal static class ConsoleInterface
 {
-    public static int GetUserOption()
+    public static int AskUserOption()
     {
-        int input = -1;
-        
         Console.Write("Choose an option: ");
 
-        while (!Int32.TryParse(Console.ReadLine(), out input) || input < 0 || input > 2)
-            Console.Write($"Choose an option between [0 - 2]");
+        int input = -1;
+        while (!Int32.TryParse(Console.ReadLine(), out input))
+            Console.Write("Choose an option: ");
 
         return input;
-    }
-
-    public static void OpenMenu(int userOptionChoice, ref bool isRendering)
-    {
-       
     }
 }

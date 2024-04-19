@@ -11,29 +11,19 @@ namespace ProjectOne
 
             Menu menu = new MainMenuHandler();
             bool isRendering = true;
-            
+
             while (isRendering)
             {
                 Console.Clear();
 
                 menu.Render();
 
-                int userOptionChoice = ConsoleInterface.GetUserOption();
+                int userOptionChoice = ConsoleInterface.AskUserOption();
 
-                //switch (userOptionChoice)
-                //{
-                //    case 0:
-                //        menu = new StudentMenu();
-                //        break;
-                //    case 1:
-                //        menu = new CourseMenu();
-                //        break;
-                //    case 2:
-                //        isRendering = false;
-                //        Console.WriteLine("Fin du program.");
-                //        break;
-                //}
+                menu = menu.ManageOptions(userOptionChoice, ref isRendering);
             }
+
+            Console.WriteLine("Fin du program.");
 
         }
     }
