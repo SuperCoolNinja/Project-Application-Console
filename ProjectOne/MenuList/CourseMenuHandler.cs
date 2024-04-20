@@ -2,7 +2,7 @@
 
 internal class CourseMenuHandler : Menu
 {
-    protected override string Title => "Courses Menu";
+    protected override string Title => "Course Menu";
 
     protected override List<string> MenuOptions => new List<string>() { "Show List", "Create", "Delete", "Main Menu" };
 
@@ -11,16 +11,16 @@ internal class CourseMenuHandler : Menu
         switch (option)
         {
             case 1:
-                Logger.Write("Show courses list");
+                Logger.Write($"[{Title}] - Show courses list");
                 return this;
             case 2:
-                Logger.Write("Create new course");
+                Logger.Write($"[{Title}] - Create new course");
                 return this;
             case 3:
-                Logger.Write("Delete new course");
+                Logger.Write($"[{Title}] - Delete new course");
                 return this;
             case 4:
-                Logger.Write("back to Main Menu");
+                Logger.Write($"[{Title}] - Back to Main Menu");
                 return new MainMenuHandler();
             default:
                 Logger.Write($"[{Title}] - Invalid option, try again.");

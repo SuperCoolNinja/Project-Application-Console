@@ -12,10 +12,13 @@ internal class MainMenuHandler : Menu
         switch (option)
         {
             case 1:
+                Logger.Write($"[{Title}] - Select Menu Students");
                 return new StudentMenuHandler();
             case 2:
+                Logger.Write($"[{Title}] - Select Menu Courses");
                 return new CourseMenuHandler();
             case 3:
+                Logger.Write($"[{Title}] - Select Exit");
                 ApplicationManager.IsExiting = true;
                 return this;
             default:

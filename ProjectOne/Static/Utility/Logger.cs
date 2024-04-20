@@ -2,16 +2,29 @@
 
 namespace ProjectOne.Static.Utility;
 
+
+/// <summary>
+/// Contains functionalities for reading from and writing to log files.
+/// </summary>
 internal static class Logger
 {
+    private const string DEFAULT_LOGGER_FILE_NAME = "application.log";
     private static string _path;
 
 
+    /// <summary>
+    /// Combine the default path with the name of the logger file.
+    /// </summary>
     static Logger()
     {
-        _path = Path.Combine(ApplicationManager.Path, "application.log");
+        _path = Path.Combine(ApplicationManager.Path, DEFAULT_LOGGER_FILE_NAME);
     }
 
+
+    /// <summary>
+    /// Writes a log message to a log file.
+    /// </summary>
+    /// <param name="message">the actual log message.</param>
     public static void Write(in string message)
     {
         DateTime dateTime = DateTime.Now;
@@ -29,6 +42,10 @@ internal static class Logger
 
     }
 
+
+    /// <summary>
+    /// Reads a log message from a log file.
+    /// </summary>
     public static void Read()
     {
         if (!File.Exists(_path))
@@ -36,7 +53,6 @@ internal static class Logger
             Console.WriteLine("File not found !");
             return;
         }
-
 
         try
         {

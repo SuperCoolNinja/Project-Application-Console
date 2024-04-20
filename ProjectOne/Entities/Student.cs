@@ -2,7 +2,7 @@
 
 internal class Student
 {
-    Guid Id { get; init; }
+    public Guid Id { get; init; }
     public string FirstName { get; init; }
     public string LastName { get; init; }
     public string Birthday { get; init; }
@@ -16,6 +16,4 @@ internal class Student
         Birthday = birthday;
         GradesList = new List<Grade>(); 
     }
-
-
 }

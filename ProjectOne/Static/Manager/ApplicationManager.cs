@@ -1,5 +1,9 @@
 ﻿namespace ProjectOne.Static.Manager;
 
+
+/// <summary>
+/// Adds some functionalities to be able to manage the application easily.
+/// </summary>
 internal static class ApplicationManager
 {
     private const string DEFAULT_PATH = "./";
