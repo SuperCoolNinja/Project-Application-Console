@@ -1,8 +1,9 @@
-﻿namespace ProjectOne.Static;
+﻿namespace ProjectOne.Static.Manager;
 
 internal static class ApplicationManager
 {
-    private const string DEFAULT_PATH = "./log.txt";
+    private const string DEFAULT_PATH = "./";
+
     public static string Path { get; set; } = DEFAULT_PATH;
 
     public static bool IsExiting { get; set; } = false;
