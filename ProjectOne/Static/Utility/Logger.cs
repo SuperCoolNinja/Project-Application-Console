@@ -1,11 +1,15 @@
-﻿namespace ProjectOne.Static;
+﻿using ProjectOne.Static.Manager;
+
+namespace ProjectOne.Static.Utility;
 
 internal static class Logger
 {
-    private static string _path = "";
+    private static string _path;
+
+
     static Logger()
     {
-        _path = ApplicationManager.Path;
+        _path = Path.Combine(ApplicationManager.Path, "application.log");
     }
 
     public static void Write(in string message)

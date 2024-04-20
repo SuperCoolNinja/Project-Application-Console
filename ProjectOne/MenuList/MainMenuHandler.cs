@@ -1,4 +1,5 @@
-﻿using ProjectOne.Static;
+﻿using ProjectOne.Static.Manager;
+using ProjectOne.Static.Utility;
 
 internal class MainMenuHandler : Menu
 {

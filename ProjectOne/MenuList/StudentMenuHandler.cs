@@ -1,5 +1,5 @@
 ﻿using ProjectOne.Entities;
-using ProjectOne.Static;
+using ProjectOne.Static.Utility;
 internal class StudentMenuHandler : Menu
 {
     protected override string Title => "Student Menu";

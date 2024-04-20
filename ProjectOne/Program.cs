@@ -1,4 +1,5 @@
-﻿using ProjectOne.Static;
+﻿using ProjectOne.Static.Manager;
+using ProjectOne.Static.Utility;
 
 namespace ProjectOne
 {
@@ -6,7 +7,7 @@ namespace ProjectOne
     {
         static void Main(string[] args)
         {
-            //ApplicationManager.ConfigurePath("C:\\log.txt");
+            //ApplicationManager.ConfigurePath("C:");
 
             Menu menu = new MainMenuHandler();
 
@@ -20,6 +21,8 @@ namespace ProjectOne
 
                 menu = menu.ManageOptions(userOptionChoice);
             }
+
+            JsonPersitance.SaveData(new object[] { 5, true, "testing" }, "data");
 
             Logger.Write("Application terminated successfully.");
         }

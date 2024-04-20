@@ -1,5 +1,4 @@
-﻿
-using ProjectOne.Static;
+﻿using ProjectOne.Static.Utility;
 
 internal class CourseMenuHandler : Menu
 {

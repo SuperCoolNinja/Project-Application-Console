@@ -1,4 +1,4 @@
-﻿namespace ProjectOne.Static;
+﻿namespace ProjectOne.Static.Utility;
 
 internal static class ConsoleInterface
 {
@@ -7,7 +7,7 @@ internal static class ConsoleInterface
         Console.Write("Choose an option: ");
 
         int input = -1;
-        while (!Int32.TryParse(Console.ReadLine(), out input))
+        while (!int.TryParse(Console.ReadLine(), out input))
             Console.Write("Choose an option: ");
 
         return input;
