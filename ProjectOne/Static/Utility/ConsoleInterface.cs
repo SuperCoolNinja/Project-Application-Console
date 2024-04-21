@@ -23,6 +23,8 @@ internal static class ConsoleInterface
         while (!int.TryParse(Console.ReadLine(), out input))
             Console.Write("Choose an option: ");
 
+        Console.Clear();
+
         return input;
     }
 
@@ -107,6 +109,35 @@ internal static class ConsoleInterface
 
         } while (isAnyFieldEmpty || doNamesContainDigits || isBirthdayInvalid);
 
+        Console.Clear();
+
         return (firstName, lastName, birthday);
+    }
+
+    /// <summary>
+    /// Prompts the user to input a numerical choice.
+    /// </summary>
+    /// <returns>The user input choice as an integer.</returns>
+    public static int AskUserID()
+    {
+        Console.Write("Enter student id : ");
+
+        int id = -1;
+
+        while (!int.TryParse(Console.ReadLine(), out id))
+            Console.Write("id : ");
+
+        Console.Clear();
+
+        return id;
+    }
+
+    /// <summary>
+    /// Output the student data.
+    /// </summary>
+    /// <param name="student">The Student to show.</param>
+    public static void ShowUserData(Student student)
+    {
+        Console.WriteLine($"\n\nStudent Information\n\n\tName : {student.FirstName} {student.LastName}\n\tBirthday : {student.Birthday}\n\n");
     }
 }

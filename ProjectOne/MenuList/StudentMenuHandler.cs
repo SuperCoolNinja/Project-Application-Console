@@ -12,13 +12,53 @@ internal class StudentMenuHandler : Menu
         ConsoleInterface.ShowStudentList(_students);
     }
 
+    private bool DoesIndexExist(int id)
+    {
+        return _students.Any(v => v.Id == id);
+    }
+
+    private Student? GetStudentByID(int id)
+    {
+        Student student = null;
+        try
+        {
+            student = _students.Find(v => v.Id == id);
+        }
+        catch (Exception ex)
+        {
+            Logger.Write($"[Student Menu] - {ex.Message}");
+        }
+
+        return student;
+    }
+
+    private void ShowStudentInfo()
+    {
+        int id = ConsoleInterface.AskUserID();
+        bool indexFound = DoesIndexExist(id);
+
+        if (!indexFound)
+        {
+            Logger.Write($"[{Title}] - Student not found.");
+            return;
+        }
+
+        var student = GetStudentByID(id);
+
+        if (student == null)
+            return;
+
+        ConsoleInterface.ShowUserData(student);
+
+        Logger.Write($"[{Title}] - Show student info");
+    }
+
     private void CreateNewStudent()
     {
         (string? firstname, string? lastname, string? birthday) = ConsoleInterface.AskStudentInfo();
 
-        if(InputValidator.AnyNullOrEmpty(firstname,  lastname, birthday)) 
+        if (InputValidator.AnyNullOrEmpty(firstname, lastname, birthday))
         {
-            Console.Clear();
             Logger.Write("[StudentMenu] - Creation of student canceled.");
             return;
         }
@@ -28,8 +68,8 @@ internal class StudentMenuHandler : Menu
         _students.Add(student);
 
         Logger.Write($"[{Title}] - Created new student");
-        Console.Clear();
     }
+
 
     public override Menu ManageOptions(int option)
     {
@@ -43,7 +83,7 @@ internal class StudentMenuHandler : Menu
                 CreateNewStudent();
                 return this;
             case 3:
-                Logger.Write($"[{Title}] - Show student info");
+                ShowStudentInfo();
                 return this;
             case 4:
                 Logger.Write($"[{Title}] - Add note");
