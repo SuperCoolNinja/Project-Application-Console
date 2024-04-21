@@ -14,8 +14,19 @@ internal class StudentMenuHandler : Menu
 
     private void CreateNewStudent()
     {
-        Student student = new Student("Foo", "Bar", "07/09/1998");
+        (string firstname, string lastname, string birthday) = ConsoleInterface.AskStudentInfo();
+
+        if(InputValidator.AnyNullOrEmpty(firstname,  lastname, birthday)) 
+        {
+            Logger.Write("[StudentMenu] - Creation of student canceled.");
+            return;
+        }
+
+        Student student = new Student(firstname, lastname, birthday);
+
         _students.Add(student);
+
+        Logger.Write($"[{Title}] - Created new student");
     }
 
     public override Menu ManageOptions(int option)
@@ -28,7 +39,6 @@ internal class StudentMenuHandler : Menu
                 return this;
             case 2:
                 CreateNewStudent();
-                Logger.Write($"[{Title}] - Create new student");
                 return this;
             case 3:
                 Logger.Write($"[{Title}] - Show student info");

@@ -72,7 +72,7 @@ internal static class ConsoleInterface
 
         do
         {
-            Console.WriteLine("\n\nEnter student details: [type exit to go back to main menu]");
+            Console.WriteLine("\n\nEnter student details: [type exit to cancel]");
             Console.Write("Firstname: ");
             firstName = Console.ReadLine();
 
