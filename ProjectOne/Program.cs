@@ -8,10 +8,17 @@ namespace ProjectOne
     {
         static void Main(string[] args)
         {
-            //ApplicationManager.ConfigurePath("C:\\Users\\sbpro\\Desktop\\data\\");
+            if(args.Length == 0)
+            {
+                Console.WriteLine("Please set a valid path where is located the data.json file to load.");
+                return;
+            }
+
+            ApplicationManager.ConfigurePath(args[0]);
+
+            ApplicationManager.Initialize();
 
             Menu menu = new MainMenuHandler();
-
 
             while (ApplicationManager.ShouldNotClose())
             {
@@ -21,8 +28,6 @@ namespace ProjectOne
 
                 menu = menu.ManageOptions(userOptionChoice);
             }
-
-            JsonPersistance.SaveData(new object[] { 5, true, "testing" });
 
             Logger.Write("Application terminated successfully.");
         }

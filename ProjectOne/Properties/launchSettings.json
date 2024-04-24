@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProjectOne": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\sbpro\\Desktop\\data"
+    }
+  }
+}

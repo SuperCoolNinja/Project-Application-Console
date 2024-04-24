@@ -1,6 +1,5 @@
 ﻿using ProjectOne.Entities;
-using static System.Formats.Asn1.AsnWriter;
-using System;
+using ProjectOne.Static.Manager;
 
 namespace ProjectOne.Static.Utility;
 
@@ -45,14 +44,20 @@ internal static class ConsoleInterface
     /// Output a list of students.
     /// </summary>
     /// <param name="students">list of student.</param>
-    public static void ShowStudentList(List<Student> students)
+    public static void ShowAllStudent()
     {
-        Console.Clear();
-
-        Console.WriteLine($"List of student :\n");
-
-        foreach (Student student in students)
-            Console.WriteLine($"\tId : {student.Id}\n\tName : {student.FirstName} {student.LastName}\n\tBirthday : {student.Birthday}\n\n");
+        Console.WriteLine("List of Students:");
+        foreach (var student in ApplicationManager.Students)
+        {
+            Console.WriteLine($"\n\tStudent:\n \t\tID: {student.Id}\n\t\tName: {student.FirstName} {student.LastName}\n\t\tBirthday: {student.Birthday}");
+            Console.WriteLine("\tGrades:");
+            foreach (var grade in student.GradesList)
+            {
+                var courseName = ApplicationManager.Courses.FirstOrDefault(c => c.Id == grade.CourseId)?.Name;
+                Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"},Value: {grade.Value}, Commentary: {grade.Commentary}");
+            }
+            Console.WriteLine();
+        }
     }
 
 

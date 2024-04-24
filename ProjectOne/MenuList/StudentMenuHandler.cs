@@ -1,55 +1,33 @@
 ﻿using ProjectOne.Entities;
+using ProjectOne.Static.Manager;
 using ProjectOne.Static.Utility;
 internal class StudentMenuHandler : Menu
 {
     protected override string Title => "Student Menu";
     protected override List<string> MenuOptions => new List<string>() { "Show List", "Create", "Show Info", "Add Note", "Main Menu" };
 
-    private List<Student> _students = new List<Student>();
-
     private void ShowAllStudent()
     {
-        ConsoleInterface.ShowStudentList(_students);
-    }
-
-    private bool DoesIndexExist(int id)
-    {
-        return _students.Any(v => v.Id == id);
+        ConsoleInterface.ShowAllStudent();
     }
 
     private Student? GetStudentByID(int id)
     {
-        Student student = null;
-        try
-        {
-            student = _students.Find(v => v.Id == id);
-        }
-        catch (Exception ex)
-        {
-            Logger.Write($"[Student Menu] - {ex.Message}");
-        }
-
-        return student;
+        return ApplicationManager.Students.FirstOrDefault(student => student.Id == id);
     }
 
     private void ShowStudentInfo()
     {
         int id = ConsoleInterface.AskUserID();
-        bool indexFound = DoesIndexExist(id);
+        Student? student = GetStudentByID(id);
 
-        if (!indexFound)
+        if (student == null)
         {
             Logger.Write($"[{Title}] - Student not found.");
             return;
         }
 
-        var student = GetStudentByID(id);
-
-        if (student == null)
-            return;
-
         ConsoleInterface.ShowUserData(student);
-
         Logger.Write($"[{Title}] - Show student info");
     }
 
@@ -64,12 +42,10 @@ internal class StudentMenuHandler : Menu
         }
 
         Student student = new Student(firstname, lastname, birthday);
-
-        _students.Add(student);
+        ApplicationManager.Students.Add(student);
 
         Logger.Write($"[{Title}] - Created new student");
     }
-
 
     public override Menu ManageOptions(int option)
     {
@@ -96,5 +72,4 @@ internal class StudentMenuHandler : Menu
                 return this;
         }
     }
-
 }

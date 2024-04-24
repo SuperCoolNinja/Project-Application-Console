@@ -1,4 +1,5 @@
-﻿using ProjectOne.Static.Manager;
+﻿using ProjectOne.Entities;
+using ProjectOne.Static.Manager;
 using ProjectOne.Static.Utility;
 
 internal class MainMenuHandler : Menu
