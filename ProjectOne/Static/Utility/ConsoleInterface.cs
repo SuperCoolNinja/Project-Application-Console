@@ -122,12 +122,23 @@ internal static class ConsoleInterface
     /// <returns>The user input choice as an integer.</returns>
     public static int AskUserID()
     {
-        Console.Write("Enter student id : ");
+        Console.WriteLine("Student List:");
+        foreach (var student in ApplicationManager.Students)
+            Console.WriteLine($"ID: {student.Id}, Name: {student.FirstName} {student.LastName}");
 
         int id;
-
-        while (!int.TryParse(Console.ReadLine(), out id))
-            Console.Write("id : ");
+        while (true)
+        {
+            Console.Write("Enter student ID: ");
+            if (int.TryParse(Console.ReadLine(), out id))
+            {
+                // Check if the entered ID exists
+                if (ApplicationManager.Students.Any(student => student.Id == id))
+                    break;
+                else Console.WriteLine("Invalid student ID. Please enter a valid student ID.");
+            }
+            else Console.WriteLine("Invalid input. Please enter a valid student ID.");
+        }
 
         Console.Clear();
 
@@ -160,4 +171,88 @@ internal static class ConsoleInterface
         }
     }
 
+    /// <summary>
+    /// Prompts the user to enter the ID of a course.
+    /// </summary>
+    /// <returns>The ID of the course entered by the user.</returns>
+    public static int AskCourseID()
+    {
+        Console.WriteLine("Course List:");
+        foreach (var course in ApplicationManager.Courses)
+            Console.WriteLine($"ID: {course.Id}, Name: {course.Name}");
+
+        int id;
+        while (true)
+        {
+            Console.Write("Enter course ID: ");
+            if (int.TryParse(Console.ReadLine(), out id))
+            {
+                // Check if the entered ID exists
+                if (ApplicationManager.Courses.Any(course => course.Id == id))
+                    break;
+                else Console.WriteLine("Invalid course ID. Please enter a valid course ID.");
+            }
+            else Console.WriteLine("Invalid input. Please enter a valid course ID.");
+        }
+
+        return id;
+    }
+
+    /// <summary>
+    /// Prompts the user to enter a note out of 20.
+    /// </summary>
+    /// <returns>The note entered by the user, which should be between 0 and 20.</returns>
+    public static int AskNote()
+    {
+        Console.Write("Enter note (out of 20): ");
+        int note;
+        while (!int.TryParse(Console.ReadLine(), out note) || note < 0 || note > 20)
+            Console.Write("Invalid note. Enter note (out of 20): ");
+
+        return note;
+    }
+
+    /// <summary>
+    /// Prompts the user to enter a commentary (optional).
+    /// </summary>
+    /// <returns>The commentary entered by the user.</returns>
+    public static string AskCommentary()
+    {
+        Console.Write("Enter commentary (optional): ");
+        return Console.ReadLine();
+    }
+
+
+
+    public static void ShowAllCourses()
+    {
+        Console.WriteLine("Course List:");
+        foreach (var course in ApplicationManager.Courses)
+        {
+            Console.WriteLine($"ID: {course.Id}, Name: {course.Name}");
+        }
+    }
+
+    public static string? AskCourseInfo()
+    {
+        string? name;
+
+        do
+        {
+            Console.WriteLine("\n\nEnter course details: [type exit to cancel]");
+            Console.Write("Name: ");
+            name = Console.ReadLine();
+
+            if (name == "exit")
+                break;
+
+            if (string.IsNullOrWhiteSpace(name))
+                Console.WriteLine("name cannot be empty.");
+
+        } while (string.IsNullOrWhiteSpace(name));
+
+        Console.Clear();
+
+        return name;
+    }
 }

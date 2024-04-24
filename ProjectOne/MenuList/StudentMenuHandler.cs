@@ -44,10 +44,44 @@ internal class StudentMenuHandler : Menu
         Student student = new Student(firstname, lastname, birthday);
         ApplicationManager.Students.Add(student);
 
-        // Save data to JSON file after adding the new student
         ApplicationManager.SaveData();
 
         Logger.Write($"[{Title}] - Created new student");
+    }
+
+    private void AddNote()
+    {
+        int studentId = ConsoleInterface.AskUserID();
+        Student? student = GetStudentByID(studentId);
+
+        if (student == null)
+        {
+            Logger.Write($"[{Title}] - Student not found.");
+            return;
+        }
+
+        int courseId = ConsoleInterface.AskCourseID();
+        int note = ConsoleInterface.AskNote();
+        string commentary = ConsoleInterface.AskCommentary();
+
+        var existingGrade = student.GradesList.FirstOrDefault(g => g.CourseId == courseId);
+
+        if (existingGrade != null)
+        {
+            existingGrade.Note = note;
+            existingGrade.Commentary = commentary;
+
+            Logger.Write($"[{Title}] - Updated existing grade for the course.");
+        }
+        else
+        {
+            Grade newGrade = new Grade(courseId, note, commentary);
+            student.AddGrade(newGrade);
+
+            Logger.Write($"[{Title}] - Added new grade to student.");
+        }
+
+        ApplicationManager.SaveData();
     }
 
     public override Menu ManageOptions(int option)
@@ -65,7 +99,7 @@ internal class StudentMenuHandler : Menu
                 ShowStudentInfo();
                 return this;
             case 4:
-                Logger.Write($"[{Title}] - Add note");
+                AddNote();
                 return this;
             case 5:
                 Logger.Write($"[{Title}] - Back to Main Menu");

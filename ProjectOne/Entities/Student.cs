@@ -18,4 +18,13 @@ internal class Student
         Birthday = birthday;
         GradesList = new List<Grade>();
     }
+
+    /// <summary>
+    /// Adds a grade to the student's list of grades.
+    /// </summary>
+    /// <param name="grade">The grade to add.</param>
+    public void AddGrade(Grade grade)
+    {
+        GradesList.Add(grade);
+    }
 }
