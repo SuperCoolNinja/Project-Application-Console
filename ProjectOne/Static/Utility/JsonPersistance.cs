@@ -11,11 +11,10 @@ namespace ProjectOne.Static.Utility;
 /// </summary>
 internal static class JsonPersistance
 {
-    private const string EXTENSION = ".json";
+    private const string JSON_EXTENSION = ".json";
 
-    public static void SaveData(object data, string filename)
+    public static void SaveData(object data, string filePath)
     {
-        var filePath = Path.Combine(ApplicationManager.Path, filename + EXTENSION);
         var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
         try
@@ -29,28 +28,33 @@ internal static class JsonPersistance
         }
     }
 
-    public static DataModel? LoadData(string filename)
+
+    public static DataModel? LoadData(string filePath)
     {
-        var filePath = Path.Combine(ApplicationManager.Path, filename + EXTENSION);
         Console.WriteLine($"Loading data from {filePath}...");
 
-        if (File.Exists(filePath))
-        {
-            try
-            {
-                var json = File.ReadAllText(filePath);
-                return JsonConvert.DeserializeObject<DataModel>(json);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to load data from {filePath}: {ex.Message}");
-                return null;
-            }
-        }
-        else
+        if (!File.Exists(filePath))
         {
             Console.WriteLine($"File not found: {filePath}");
             return null;
         }
+
+        if (!filePath.EndsWith(JSON_EXTENSION))
+        {
+            Console.WriteLine($"Invalid JSON file path: {filePath}");
+            return null;
+        }
+
+        try
+        {
+            var json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<DataModel>(json);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load data from {filePath}: {ex.Message}");
+            return null;
+        }
     }
+
 }

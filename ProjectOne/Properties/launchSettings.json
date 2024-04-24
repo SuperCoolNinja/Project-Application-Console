@@ -2,7 +2,7 @@
   "profiles": {
     "ProjectOne": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\sbpro\\Desktop\\data"
+      "commandLineArgs": "C:\\Users\\sbpro\\Desktop\\test\\data.json"
     }
   }
 }

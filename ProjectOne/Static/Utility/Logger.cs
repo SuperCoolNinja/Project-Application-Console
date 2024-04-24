@@ -11,15 +11,14 @@ internal static class Logger
     private const string DEFAULT_LOGGER_FILE_NAME = "application.log";
     private static string _path;
 
-
     /// <summary>
-    /// Combine the default path with the name of the logger file.
+    /// Initialize logger with the path where the JSON file is located.
     /// </summary>
-    static Logger()
+    /// <param name="jsonFilePath">The path of the JSON file.</param>
+    public static void InitializeLogger(string jsonFilePath)
     {
-        _path = Path.Combine(ApplicationManager.Path, DEFAULT_LOGGER_FILE_NAME);
+        _path = Path.Combine(Path.GetDirectoryName(jsonFilePath), DEFAULT_LOGGER_FILE_NAME);
     }
-
 
     /// <summary>
     /// Writes a log message to a log file.
@@ -41,7 +40,6 @@ internal static class Logger
         }
 
     }
-
 
     /// <summary>
     /// Reads a log message from a log file.

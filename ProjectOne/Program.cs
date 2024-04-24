@@ -8,15 +8,15 @@ namespace ProjectOne
     {
         static void Main(string[] args)
         {
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
-                Console.WriteLine("Please set a valid path where is located the data.json file to load.");
+                Console.WriteLine("Please provide a valid path where the data.json file is located.");
                 return;
             }
 
-            ApplicationManager.ConfigurePath(args[0]);
+            string jsonFilePath = args[0];
 
-            ApplicationManager.Initialize();
+            ApplicationManager.Initialize(jsonFilePath);
 
             Menu menu = new MainMenuHandler();
 
