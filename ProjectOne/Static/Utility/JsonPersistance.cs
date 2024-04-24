@@ -20,41 +20,47 @@ internal static class JsonPersistance
         try
         {
             File.WriteAllText(filePath, json);
-            Console.WriteLine($"Data saved to {filePath}.");
+            Logger.Write($"Data saved to {filePath}.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Failed to save data to {filePath}: {ex.Message}");
+            Logger.Write($"Failed to save data to {filePath}: {ex.Message}");
+            ApplicationManager.IsExiting = true;
         }
     }
 
 
     public static DataModel? LoadData(string filePath)
     {
-        Console.WriteLine($"Loading data from {filePath}...");
+        Logger.Write($"Loading data from {filePath}...");
 
         if (!File.Exists(filePath))
         {
-            Console.WriteLine($"File not found: {filePath}");
+            Logger.Write($"Loading data from {filePath}...");
+            ApplicationManager.IsExiting = true;
             return null;
         }
 
         if (!filePath.EndsWith(JSON_EXTENSION))
         {
-            Console.WriteLine($"Invalid JSON file path: {filePath}");
+            Logger.Write($"Invalid JSON file path: {filePath}");
+            ApplicationManager.IsExiting = true;
             return null;
         }
 
         try
         {
             var json = File.ReadAllText(filePath);
+            Logger.Write($"data loaded successfully.");
             return JsonConvert.DeserializeObject<DataModel>(json);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Failed to load data from {filePath}: {ex.Message}");
+            Logger.Write($"Failed to load data from {filePath}: {ex.Message}");
+            ApplicationManager.IsExiting = true;
             return null;
         }
+
     }
 
 }

@@ -40,31 +40,4 @@ internal static class Logger
         }
 
     }
-
-    /// <summary>
-    /// Reads a log message from a log file.
-    /// </summary>
-    public static void Read()
-    {
-        if (!File.Exists(_path))
-        {
-            Console.WriteLine("File not found !");
-            return;
-        }
-
-        try
-        {
-            using (StreamReader sr = File.OpenText(_path))
-            {
-                string s;
-                while ((s = sr.ReadLine()) != null)
-                    Console.WriteLine(s);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-
-    }
 }
