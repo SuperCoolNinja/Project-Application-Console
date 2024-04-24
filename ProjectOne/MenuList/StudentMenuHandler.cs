@@ -44,6 +44,9 @@ internal class StudentMenuHandler : Menu
         Student student = new Student(firstname, lastname, birthday);
         ApplicationManager.Students.Add(student);
 
+        // Save data to JSON file after adding the new student
+        ApplicationManager.SaveData();
+
         Logger.Write($"[{Title}] - Created new student");
     }
 

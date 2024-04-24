@@ -13,54 +13,57 @@ internal static class JsonPersistance
 {
     private const string JSON_EXTENSION = ".json";
 
-    public static void SaveData(object data, string filePath)
+    public static void SaveData(object data)
     {
         var json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
         try
         {
-            File.WriteAllText(filePath, json);
-            Logger.Write($"Data saved to {filePath}.");
+            using (StreamWriter writer = new StreamWriter(ApplicationManager.FilePath, false))
+            {
+                writer.Write(json);
+            }
+
+            Logger.Write($"Data saved to {ApplicationManager.FilePath}.");
         }
         catch (Exception ex)
         {
-            Logger.Write($"Failed to save data to {filePath}: {ex.Message}");
+            Logger.Write($"Failed to save data to {ApplicationManager.FilePath}: {ex.Message}");
             ApplicationManager.IsExiting = true;
         }
     }
 
 
-    public static DataModel? LoadData(string filePath)
+    public static DataModel? LoadData()
     {
+        var filePath = ApplicationManager.FilePath;
         Logger.Write($"Loading data from {filePath}...");
 
-        if (!File.Exists(filePath))
+        if (!Path.IsPathRooted(filePath) || filePath.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
         {
-            Logger.Write($"Loading data from {filePath}...");
-            ApplicationManager.IsExiting = true;
+            Logger.Write($"Invalid file path: {filePath}");
             return null;
         }
 
         if (!filePath.EndsWith(JSON_EXTENSION))
         {
             Logger.Write($"Invalid JSON file path: {filePath}");
-            ApplicationManager.IsExiting = true;
             return null;
         }
 
         try
         {
-            var json = File.ReadAllText(filePath);
-            Logger.Write($"data loaded successfully.");
-            return JsonConvert.DeserializeObject<DataModel>(json);
+            using (var fileStream = File.OpenText(filePath))
+            {
+                var json = fileStream.ReadToEnd();
+                Logger.Write("Data loaded successfully.");
+                return JsonConvert.DeserializeObject<DataModel>(json);
+            }
         }
         catch (Exception ex)
         {
             Logger.Write($"Failed to load data from {filePath}: {ex.Message}");
-            ApplicationManager.IsExiting = true;
             return null;
         }
-
     }
-
 }

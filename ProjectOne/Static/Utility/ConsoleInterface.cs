@@ -1,5 +1,6 @@
 ﻿using ProjectOne.Entities;
 using ProjectOne.Static.Manager;
+using System.Diagnostics;
 
 namespace ProjectOne.Static.Utility;
 
@@ -49,14 +50,10 @@ internal static class ConsoleInterface
         Console.WriteLine("List of Students:");
         foreach (var student in ApplicationManager.Students)
         {
-            Console.WriteLine($"\n\tStudent:\n \t\tID: {student.Id}\n\t\tName: {student.FirstName} {student.LastName}\n\t\tBirthday: {student.Birthday}");
-            Console.WriteLine("\tGrades:");
-            foreach (var grade in student.GradesList)
-            {
-                var courseName = ApplicationManager.Courses.FirstOrDefault(c => c.Id == grade.CourseId)?.Name;
-                Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"},Value: {grade.Value}, Commentary: {grade.Commentary}");
-            }
-            Console.WriteLine();
+            Console.WriteLine($"\n\tStudent:\n " +
+                $"\t\tID : {student.Id}\n" +
+                $"\t\tName : {student.FirstName} {student.LastName}\n" +
+                $"\t\tBirthday : {student.Birthday}");
         }
     }
 
@@ -127,7 +124,7 @@ internal static class ConsoleInterface
     {
         Console.Write("Enter student id : ");
 
-        int id = -1;
+        int id;
 
         while (!int.TryParse(Console.ReadLine(), out id))
             Console.Write("id : ");
@@ -143,6 +140,24 @@ internal static class ConsoleInterface
     /// <param name="student">The Student to show.</param>
     public static void ShowUserData(Student student)
     {
-        Console.WriteLine($"\n\nStudent Information\n\n\tName : {student.FirstName} {student.LastName}\n\tBirthday : {student.Birthday}\n\n");
+        Console.WriteLine($"\n\tStudent:\n " +
+            $"\t\tID : {student.Id}\n" +
+            $"\t\tFirstname : {student.FirstName}\n" +
+            $"\t\tLastname : {student.LastName}\n" +
+            $"\t\tBirthday : {student.Birthday}");
+
+        Console.WriteLine("\tGrades:");
+
+
+        foreach (var grade in student.GradesList)
+        {
+            string comment = grade.Commentary.Length > 0 ? "Commentary : " + grade.Commentary : "";
+            var courseName = ApplicationManager.Courses.Find(c => c.Id == grade.CourseId)?.Name;
+
+            Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"}, \n\t\t\tNote : {grade.Note}/20, \n\t\t\t{comment}");
+
+            Console.WriteLine();
+        }
     }
+
 }

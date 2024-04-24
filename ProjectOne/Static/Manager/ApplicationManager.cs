@@ -13,7 +13,7 @@ internal static class ApplicationManager
     private static List<Student> _students = new List<Student>();
     private static List<Course> _courses = new List<Course>();
     private static List<Grade> _grades = new List<Grade>();
-    private static string _jsonFilePath;
+    public static string FilePath { get; private set; }
 
     public static List<Student> Students { get { return _students; } }
     public static List<Course> Courses { get { return _courses; } }
@@ -24,14 +24,14 @@ internal static class ApplicationManager
 
     public static void Initialize(string jsonFilePath)
     {
-        _jsonFilePath = jsonFilePath;
+        FilePath = jsonFilePath;
         Logger.InitializeLogger(jsonFilePath);
-        LoadData(jsonFilePath);
+        LoadData();
     }
 
-    private static void LoadData(string jsonFilePath)
+    private static void LoadData()
     {
-        var data = JsonPersistance.LoadData(jsonFilePath);
+        var data = JsonPersistance.LoadData();
         if (data != null)
         {
             _students = data.Students;
@@ -46,9 +46,8 @@ internal static class ApplicationManager
         }
     }
 
-    public static void SaveData(string jsonFilePath)
+    public static void SaveData()
     {
-        var fileName = Path.GetFileNameWithoutExtension(jsonFilePath);
         var data = new DataModel
         {
             Students = _students,
@@ -56,7 +55,7 @@ internal static class ApplicationManager
             Grades = _grades
         };
 
-        JsonPersistance.SaveData(data, fileName);
+        JsonPersistance.SaveData(data);
 
         Logger.Write("Data saved successfully");
     }
