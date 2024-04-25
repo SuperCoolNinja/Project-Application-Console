@@ -159,16 +159,22 @@ internal static class ConsoleInterface
 
         Console.WriteLine("\tGrades:");
 
-
+        double noteAverage = 0;
         foreach (var grade in student.GradesList)
         {
             string comment = grade.Commentary.Length > 0 ? "Commentary : " + grade.Commentary : "";
             var courseName = ApplicationManager.Courses.Find(c => c.Id == grade.CourseId)?.Name;
 
+            noteAverage += grade.Note;
+
             Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"}, \n\t\t\tNote : {grade.Note}/20, \n\t\t\t{comment}");
 
             Console.WriteLine();
         }
+
+        noteAverage /= student.GradesList.Count;
+
+        Console.WriteLine($"\t\tAverage : {noteAverage}/20");
     }
 
     /// <summary>
