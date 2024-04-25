@@ -1,6 +1,17 @@
 # Project-Application-Console
 Wild Code School, First Project - C# .NET Application Console.
 
+# How to use this application ? 
+**To start this application you will need to :** 
+<ul>
+    <li>Run the .exe from a terminal.</li>
+    <li>Add an argument for the full path to the .json file, whether it's empty or already filled, for writing and reading.</li>
+</ul>
+
+### Example : 
+![image](https://image.noelshack.com/fichiers/2024/17/4/1714057307-screenshot-2024-04-25-170002.png)
+
+
 # Application Overview
     Student Management:
         List Students: Display a list of all students in the system.
@@ -23,11 +34,9 @@ Wild Code School, First Project - C# .NET Application Console.
 
     Logging:
         Action Logging: Every significant action taken by users, such as data modifications or views, is logged with timestamps for accountability and tracking purposes.
-
-Technology Stack
+# Technology Stack
 
 * Language and Framework: The application will be developed in C# using .NET Core 7.0.
-* Dependencies: Nuget packages can be used for external dependencies.
 * Data Handling: Data persistence will be implemented in a simple JSON text file format using the Newtonsoft.JSON library.
 * Development Environment: Development and compilation will be carried out using Visual Studio Code.
 
