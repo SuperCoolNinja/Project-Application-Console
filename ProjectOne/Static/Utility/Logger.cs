@@ -34,9 +34,10 @@ internal static class Logger
             using (StreamWriter sw = !File.Exists(_path) ? File.CreateText(_path) : File.AppendText(_path))
                 sw.WriteLine(date + " " + message);
         }
-        catch (Exception ex)
+        catch
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("Cannot create log file because the path set is not valid.");
+            ApplicationManager.IsExiting = true;
         }
 
     }
