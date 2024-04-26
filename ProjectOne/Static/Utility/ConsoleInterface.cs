@@ -242,7 +242,6 @@ internal static class ConsoleInterface
     public static string? AskCourseInfo()
     {
         string? name;
-
         do
         {
             Console.WriteLine("\n\nEnter course details: [type exit to cancel]");
@@ -252,10 +251,19 @@ internal static class ConsoleInterface
             if (name == "exit")
                 break;
 
-            if (string.IsNullOrWhiteSpace(name))
-                Console.WriteLine("name cannot be empty.");
 
-        } while (string.IsNullOrWhiteSpace(name));
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("name cannot be empty.");
+            }
+            else
+            {
+                name = name?.ToLower();
+
+                if (ApplicationManager.Courses.Any(v => v.Name.ToLower() == name))
+                    Console.WriteLine("This course already exist.");
+            }
+        } while (string.IsNullOrWhiteSpace(name) || ApplicationManager.Courses.Any(v => v.Name.ToLower() == name));
 
         Console.Clear();
 
