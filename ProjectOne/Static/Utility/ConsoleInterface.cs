@@ -71,8 +71,8 @@ internal static class ConsoleInterface
     {
         string? firstName = null;
         string? lastName = null;
-        string? birthday = null; ;
-        bool isAnyFieldEmpty, doNamesContainDigits, isBirthdayInvalid;
+        string? birthday = null;
+        bool isRegisterDone = false;
 
         do
         {
@@ -83,33 +83,35 @@ internal static class ConsoleInterface
             if (firstName == "exit")
                 break;
 
-            Console.Write("Lastname: ");
-            lastName = Console.ReadLine();
-            if (lastName == "exit")
-                break;
+            if (InputValidator.AnyNullOrEmpty(firstName))
+                Console.WriteLine("Firstname cannot be empty.");
+            else if (InputValidator.ContainsDigits(firstName))
+                Console.WriteLine("Firstname should not contain digits.");
+            else
+            {
+                Console.Write("Lastname: ");
+                lastName = Console.ReadLine();
+                if (lastName == "exit")
+                    break;
 
 
-            Console.Write("Birthday (Format: DD/MM/YYYY): ");
-            birthday = Console.ReadLine();
-            if (birthday == "exit")
-                break;
+                if (InputValidator.AnyNullOrEmpty(lastName))
+                    Console.WriteLine("Lastname cannot be empty.");
+                else if (InputValidator.ContainsDigits(lastName))
+                    Console.WriteLine("Lastname should not contain digits.");
+                else
+                {
+                    Console.Write("Birthday (Format: DD/MM/YYYY): ");
+                    birthday = Console.ReadLine();
+                    if (birthday == "exit")
+                        break;
 
-            isAnyFieldEmpty = InputValidator.AnyNullOrEmpty(firstName, lastName, birthday);
-            doNamesContainDigits = InputValidator.ContainsDigits(firstName, lastName);
-            isBirthdayInvalid = !InputValidator.IsValidDate(birthday);
-
-
-
-            if (isAnyFieldEmpty)
-                Console.WriteLine("No fields can be empty.");
-
-            if (doNamesContainDigits)
-                Console.WriteLine("Names should not contain digits.");
-
-            if (isBirthdayInvalid)
-                Console.WriteLine("Birthday must be in the correct format (DD/MM/YYYY) and a valid date.");
-
-        } while (isAnyFieldEmpty || doNamesContainDigits || isBirthdayInvalid);
+                    if (!InputValidator.IsValidDate(birthday))
+                        Console.WriteLine("Birthday must be in the correct format (DD/MM/YYYY) and a valid date.");
+                    else isRegisterDone = true;
+                }
+            }
+        } while (!isRegisterDone);
 
         Console.Clear();
 
