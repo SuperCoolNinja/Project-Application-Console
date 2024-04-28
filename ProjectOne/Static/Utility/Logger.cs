@@ -8,7 +8,7 @@ namespace ProjectOne.Static.Utility;
 /// </summary>
 internal static class Logger
 {
-    private const string DEFAULT_LOGGER_FILE_NAME = "application.log";
+    private const string EXTENSION = ".log";
     private static string _path;
 
     /// <summary>
@@ -17,7 +17,8 @@ internal static class Logger
     /// <param name="jsonFilePath">The path of the JSON file.</param>
     public static void InitializeLogger(string jsonFilePath)
     {
-        _path = Path.Combine(Path.GetDirectoryName(jsonFilePath), DEFAULT_LOGGER_FILE_NAME);
+        var fileName = Path.GetFileName(jsonFilePath).Split('.')[0];
+        _path = Path.Combine(Path.GetDirectoryName(jsonFilePath), fileName + EXTENSION);
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ namespace ProjectOne
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Please provide a valid path where the data.json file is located.");
+                Console.WriteLine("Please provide a valid path where the .json file is located.");
                 Console.ReadKey();
                 return;
             }

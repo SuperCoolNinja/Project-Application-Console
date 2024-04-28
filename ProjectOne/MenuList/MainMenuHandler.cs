@@ -27,5 +27,4 @@ internal class MainMenuHandler : Menu
                 return this;
         }
     }
-
 }

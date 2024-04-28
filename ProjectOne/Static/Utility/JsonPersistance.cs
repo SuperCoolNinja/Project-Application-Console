@@ -11,7 +11,7 @@ namespace ProjectOne.Static.Utility;
 /// </summary>
 internal static class JsonPersistance
 {
-    private const string JSON_EXTENSION = ".json";
+    private const string EXTENSION = ".json";
 
     public static void SaveData(object data)
     {
@@ -45,7 +45,7 @@ internal static class JsonPersistance
             return null;
         }
 
-        if (!filePath.EndsWith(JSON_EXTENSION))
+        if (!filePath.EndsWith(EXTENSION))
         {
             Logger.Write($"Invalid JSON file path: {filePath}");
             return null;
