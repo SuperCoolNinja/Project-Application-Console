@@ -207,6 +207,30 @@ internal static class ConsoleInterface
     }
 
     /// <summary>
+    /// Prompts the user to enter confirmation.
+    /// </summary>
+    /// <returns>Return True if the user type Yes or y else no.</returns>
+    public static bool DoesUserConfirm()
+    {
+        string? userInput = null;
+
+        Console.WriteLine("Are you sure ?");
+
+        do
+        {
+            Console.Write("Enter Yes or No : ");
+            userInput = Console.ReadLine();
+        } while (InputValidator.AnyNullOrEmpty(userInput));
+
+        if (userInput.ToLower() == "y" || userInput.ToLower() == "yes")
+            return true;
+
+        Console.WriteLine("Operation canceled.");
+
+        return false;
+    }
+
+    /// <summary>
     /// Prompts the user to enter a note out of 20.
     /// </summary>
     /// <returns>The note entered by the user, which should be between 0 and 20.</returns>

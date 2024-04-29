@@ -34,6 +34,7 @@ internal class CourseMenuHandler : Menu
     private void DeleteCourse()
     {
         int courseId = ConsoleInterface.AskCourseID();
+
         Course? course = ApplicationManager.Courses.FirstOrDefault(c => c.Id == courseId);
 
         if (course == null)
@@ -42,21 +43,25 @@ internal class CourseMenuHandler : Menu
             return;
         }
 
-        ApplicationManager.Courses.Remove(course);
-
-        foreach (var student in ApplicationManager.Students)
+        if (ConsoleInterface.DoesUserConfirm())
         {
-            var gradeToRemove = student.GradesList.FirstOrDefault(g => g.CourseId == courseId);
+            ApplicationManager.Courses.Remove(course);
 
-            if (gradeToRemove != null)
+            foreach (var student in ApplicationManager.Students)
             {
-                student.GradesList.Remove(gradeToRemove);
+                var gradeToRemove = student.GradesList.FirstOrDefault(g => g.CourseId == courseId);
+
+                if (gradeToRemove != null)
+                {
+                    student.GradesList.Remove(gradeToRemove);
+                }
             }
+
+            ApplicationManager.SaveData();
+
+            Logger.Write($"[{Title}] - Deleted course and associated grades");
         }
-
-        ApplicationManager.SaveData();
-
-        Logger.Write($"[{Title}] - Deleted course and associated grades");
+        else Logger.Write($"[{Title}] - Operation canceled course not deleted.");
     }
 
     public override Menu ManageOptions(int option)
