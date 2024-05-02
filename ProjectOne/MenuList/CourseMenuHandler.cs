@@ -20,11 +20,14 @@ internal class CourseMenuHandler : Menu
         if (InputValidator.AnyNullOrEmpty(name))
         {
             Logger.Write("[CourseMenu] - Creation of course canceled.");
+            ConsoleInterface.Clear();
             return;
         }
 
         Course course = new Course(name);
         ApplicationManager.Courses.Add(course);
+
+        ConsoleInterface.Clear();
 
         ApplicationManager.SaveData();
 
@@ -33,7 +36,14 @@ internal class CourseMenuHandler : Menu
 
     private void DeleteCourse()
     {
-        int courseId = ConsoleInterface.AskCourseID();
+        int? courseId = ConsoleInterface.AskCourseID();
+
+        if (courseId == null)
+        {
+            Logger.Write($"[{Title}] - Operation canceled course not deleted.");
+            ConsoleInterface.Clear();
+            return;
+        }
 
         Course? course = ApplicationManager.Courses.FirstOrDefault(c => c.Id == courseId);
 
@@ -52,10 +62,10 @@ internal class CourseMenuHandler : Menu
                 var gradeToRemove = student.GradesList.FirstOrDefault(g => g.CourseId == courseId);
 
                 if (gradeToRemove != null)
-                {
                     student.GradesList.Remove(gradeToRemove);
-                }
             }
+
+            ConsoleInterface.Clear();
 
             ApplicationManager.SaveData();
 

@@ -55,6 +55,10 @@ internal static class ConsoleInterface
                 $"\t\tName : {student.FirstName} {student.LastName}\n" +
                 $"\t\tBirthday : {student.Birthday}");
         }
+     
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
     }
 
 
@@ -159,33 +163,37 @@ internal static class ConsoleInterface
             $"\t\tLastname : {student.LastName}\n" +
             $"\t\tBirthday : {student.Birthday}");
 
-        Console.WriteLine("\tGrades:");
 
-        double noteAverage = 0;
-        foreach (var grade in student.GradesList)
+        if (student.GradesList.Count > 0)
         {
-            string comment = grade.Commentary.Length > 0 ? "Commentary : " + grade.Commentary : "";
-            var courseName = ApplicationManager.Courses.Find(c => c.Id == grade.CourseId)?.Name;
+            Console.WriteLine("\tGrades:");
 
-            noteAverage += grade.Note;
+            double noteAverage = 0;
+            foreach (var grade in student.GradesList)
+            {
+                string comment = grade.Commentary.Length > 0 ? "Commentary : " + grade.Commentary : "";
+                var courseName = ApplicationManager.Courses.Find(c => c.Id == grade.CourseId)?.Name;
 
-            Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"}, \n\t\t\tNote : {grade.Note}/20, \n\t\t\t{comment}");
+                noteAverage += grade.Note;
 
-            Console.WriteLine();
+                Console.WriteLine($"\t\tCourse: {courseName ?? "Unknown"}, \n\t\t\tNote : {grade.Note}/20, \n\t\t\t{comment}");
+
+                Console.WriteLine();
+            }
+
+            noteAverage /= student.GradesList.Count;
+
+            Console.WriteLine($"\t\tAverage : {noteAverage}/20");
         }
-
-        noteAverage /= student.GradesList.Count;
-
-        Console.WriteLine($"\t\tAverage : {noteAverage}/20");
     }
 
     /// <summary>
     /// Prompts the user to enter the ID of a course.
     /// </summary>
     /// <returns>The ID of the course entered by the user.</returns>
-    public static int AskCourseID()
+    public static int? AskCourseID()
     {
-        Console.WriteLine("Course List:");
+        Console.WriteLine("Course List (Type exit to cancel.)");
         foreach (var course in ApplicationManager.Courses)
             Console.WriteLine($"ID: {course.Id}, Name: {course.Name}");
 
@@ -193,7 +201,12 @@ internal static class ConsoleInterface
         while (true)
         {
             Console.Write("Enter course ID: ");
-            if (int.TryParse(Console.ReadLine(), out id))
+            var courseId = Console.ReadLine();
+
+            if (courseId.ToLower() == "exit")
+                return null;
+
+            if (int.TryParse(courseId, out id))
             {
                 // Check if the entered ID exists
                 if (ApplicationManager.Courses.Any(course => course.Id == id))
@@ -258,11 +271,16 @@ internal static class ConsoleInterface
 
     public static void ShowAllCourses()
     {
-        Console.WriteLine("Course List:");
+        Console.WriteLine("Course List : \n");
         foreach (var course in ApplicationManager.Courses)
         {
-            Console.WriteLine($"ID: {course.Id}, Name: {course.Name}");
+            var courseName = course.Name[0].ToString().ToUpper() + course.Name.Substring(1);
+            Console.WriteLine($"\tID: {course.Id}, Name: {courseName}");
         }
+
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
     }
 
     public static string? AskCourseInfo()
@@ -294,5 +312,10 @@ internal static class ConsoleInterface
         Console.Clear();
 
         return name;
+    }
+
+    internal static void Clear()
+    {
+        Console.Clear();
     }
 }

@@ -12,9 +12,9 @@ internal class Grade
     /// <param name="courseId">The ID of the course.</param>
     /// <param name="note">The note for the course.</param>
     /// <param name="commentary">The optional commentary for the grade.</param>
-    public Grade(int courseId, double note, string commentary = "")
+    public Grade(int? courseId, double note, string commentary = "")
     {
-        CourseId = courseId;
+        CourseId = courseId ?? -1;
         Note = note;
         Commentary = commentary;
     }

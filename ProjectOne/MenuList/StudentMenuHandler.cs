@@ -60,7 +60,16 @@ internal class StudentMenuHandler : Menu
             return;
         }
 
-        int courseId = ConsoleInterface.AskCourseID();
+        int? courseId = ConsoleInterface.AskCourseID();
+
+        if (courseId == null)
+        {
+            Logger.Write($"[{Title}] - Operation canceled note not added.");
+            ConsoleInterface.Clear();
+            return;
+        }
+
+
         int note = ConsoleInterface.AskNote();
         string commentary = ConsoleInterface.AskCommentary();
 
@@ -76,10 +85,13 @@ internal class StudentMenuHandler : Menu
         else
         {
             Grade newGrade = new Grade(courseId, note, commentary);
+            
             student.AddGrade(newGrade);
 
             Logger.Write($"[{Title}] - Added new grade to student.");
         }
+
+        ConsoleInterface.Clear();
 
         ApplicationManager.SaveData();
     }
